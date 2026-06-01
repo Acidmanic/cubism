@@ -1,4 +1,4 @@
-namespace Cubism.Console.Models;
+namespace Cubism.Models;
 
 public struct Size3Absolute
 {
