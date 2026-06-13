@@ -5,9 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\Cubism.Console\Cubism.Console.csproj" />
+    <PackageReference Include="Acidmanic.Utilities" Version="1.0.22-b08" />
   </ItemGroup>
-
 </Project>

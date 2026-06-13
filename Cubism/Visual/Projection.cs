@@ -12,6 +12,7 @@ public class Projection
 
     public Point Transform(Point3 point)
     {
-        
+        //TODO:
+        return new Point();
     }
 }
