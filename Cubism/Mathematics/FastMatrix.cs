@@ -95,4 +95,75 @@ public struct FastMatrix
 
         return result;
     }
+
+    public static FastMatrix operator +(FastMatrix m1, FastMatrix m2)
+    {
+        if (m1._columns != m2._columns) throw new DimensionMismatchException();
+        if (m1._rows != m2._rows) throw new DimensionMismatchException();
+
+        var result = new FastMatrix(m1._rows, m1._columns);
+
+        for (int r = 0; r < m1._rows; r++)
+        {
+            for (int c = 0; c < m1._columns; c++)
+            {
+                result[r, c] = m1[r, c] + m2[r, c];
+            }
+        }
+
+        return result;
+    }
+
+    public static FastMatrix operator -(FastMatrix m1, FastMatrix m2)
+    {
+        if (m1._columns != m2._columns) throw new DimensionMismatchException();
+        if (m1._rows != m2._rows) throw new DimensionMismatchException();
+
+        var result = new FastMatrix(m1._rows, m1._columns);
+
+        for (int r = 0; r < m1._rows; r++)
+        {
+            for (int c = 0; c < m1._columns; c++)
+            {
+                result[r, c] = m1[r, c] - m2[r, c];
+            }
+        }
+
+        return result;
+    }
+
+    public static FastMatrix operator /(FastMatrix m1, FastMatrix m2)
+    {
+        if (m1._columns != m2._columns) throw new DimensionMismatchException();
+        if (m1._rows != m2._rows) throw new DimensionMismatchException();
+
+        var result = new FastMatrix(m1._rows, m1._columns);
+
+        for (int r = 0; r < m1._rows; r++)
+        {
+            for (int c = 0; c < m1._columns; c++)
+            {
+                result[r, c] = m1[r, c] / m2[r, c];
+            }
+        }
+
+        return result;
+    }
+    
+    public static FastMatrix operator &(FastMatrix m1, FastMatrix m2)
+    {
+        if (m1._columns != m2._columns) throw new DimensionMismatchException();
+        if (m1._rows != m2._rows) throw new DimensionMismatchException();
+
+        var result = new FastMatrix(m1._rows, m1._columns);
+
+        for (int r = 0; r < m1._rows; r++)
+        {
+            for (int c = 0; c < m1._columns; c++)
+            {
+                result[r, c] = m1[r, c] * m2[r, c];
+            }
+        }
+        return result;
+    }
 }
