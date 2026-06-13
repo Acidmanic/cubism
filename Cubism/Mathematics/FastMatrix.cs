@@ -88,7 +88,7 @@ public struct FastMatrix
             {
                 for (int i = 0; i < length; i++)
                 {
-                    result[r, c] += m1[r, i] * m2[i, c];
+                    result._values[r, c] += m1[r, i] * m2[i, c];
                 }
             }
         }
@@ -107,7 +107,7 @@ public struct FastMatrix
         {
             for (int c = 0; c < m1._columns; c++)
             {
-                result[r, c] = m1[r, c] + m2[r, c];
+                result._values[r, c] = m1[r, c] + m2[r, c];
             }
         }
 
@@ -125,7 +125,7 @@ public struct FastMatrix
         {
             for (int c = 0; c < m1._columns; c++)
             {
-                result[r, c] = m1[r, c] - m2[r, c];
+                result._values[r, c] = m1[r, c] - m2[r, c];
             }
         }
 
@@ -143,13 +143,13 @@ public struct FastMatrix
         {
             for (int c = 0; c < m1._columns; c++)
             {
-                result[r, c] = m1[r, c] / m2[r, c];
+                result._values[r, c] = m1[r, c] / m2[r, c];
             }
         }
 
         return result;
     }
-    
+
     public static FastMatrix operator &(FastMatrix m1, FastMatrix m2)
     {
         if (m1._columns != m2._columns) throw new DimensionMismatchException();
@@ -161,9 +161,25 @@ public struct FastMatrix
         {
             for (int c = 0; c < m1._columns; c++)
             {
-                result[r, c] = m1[r, c] * m2[r, c];
+                result._values[r, c] = m1[r, c] * m2[r, c];
             }
         }
+
+        return result;
+    }
+
+    public FastMatrix Transpose()
+    {
+        var result = new FastMatrix(_columns, _rows);
+
+        for (int r = 0; r < _rows; r++)
+        {
+            for (int c = 0; c < _columns; c++)
+            {
+                result._values[c, r] = this[r, c];
+            }
+        }
+
         return result;
     }
 }
