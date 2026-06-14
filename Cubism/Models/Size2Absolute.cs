@@ -1,20 +1,18 @@
 namespace Cubism.Models;
 
-public struct Size3Absolute
+public struct Size2Absolute
 {
     public readonly int Width;
     public readonly int Height;
-    public readonly int Depth;
 
-    public Size3Absolute(int width, int height, int depth)
+    public Size2Absolute(int width, int height)
     {
         Width = width;
         Height = height;
-        Depth = depth;
     }
 
     public override string ToString()
     {
-        return $"{Width}x{Height}x{Depth}";
+        return $"{Width}x{Height}";
     }
 }

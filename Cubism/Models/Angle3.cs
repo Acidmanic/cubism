@@ -2,9 +2,9 @@ namespace Cubism.Models;
 
 public struct Angle3
 {
-    public double Alpha { get;  }
-    public double Beta { get;  }
-    public double Gamma { get;  }
+    public readonly double Alpha;
+    public readonly double Beta;
+    public readonly double Gamma;
 
     public Angle3(double alpha, double beta, double gamma)
     {

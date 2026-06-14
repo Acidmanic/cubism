@@ -1,21 +1,18 @@
 namespace Cubism.Models;
 
-public struct Point3Absolute
+public struct Point2Absolute
 {
     public readonly int X;
     public readonly int Y;
-    public readonly int Z;
-    
-    public Point3Absolute(int x, int y, int z)
+
+    public Point2Absolute(int x, int y)
     {
         X = x;
         Y = y;
-        Z = z;
     }
 
     public override string ToString()
     {
-        return $"({X}, {Y}, {Z})";
+        return $"({X}, {Y})";
     }
-
 }

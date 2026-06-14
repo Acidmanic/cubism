@@ -2,9 +2,9 @@ namespace Cubism.Models;
 
 public struct Point3
 {
-    public double X { get; }
-    public double Y { get; }
-    public double Z { get; }
+    public readonly double X;
+    public readonly double Y;
+    public readonly double Z;
 
     public Point3(double x, double y, double z)
     {
