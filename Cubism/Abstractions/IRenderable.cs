@@ -2,5 +2,5 @@ namespace Cubism.Abstractions;
 
 public interface IRenderable
 {
-    void Render(IRenderContext renderContext);
+    void Render(IRenderContext3D renderContext2D);
 }

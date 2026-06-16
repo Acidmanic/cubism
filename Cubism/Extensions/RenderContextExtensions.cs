@@ -5,7 +5,7 @@ namespace Cubism.Extensions;
 
 public static class RenderContextExtensions
 {
-    public static void DrawRectangle(this IRenderContext ctx, System.Drawing.Color color, Point2 topLeft, double width, double height)
+    public static void DrawRectangle(this IRenderContext2D ctx, System.Drawing.Color color, Point2 topLeft, double width, double height)
     {
         ctx.DrawPolygon(color, [
             topLeft,
@@ -15,7 +15,7 @@ public static class RenderContextExtensions
         ]);
     }
 
-    public static void FillRectangle(this IRenderContext ctx, System.Drawing.Color color, Point2 topLeft, double width, double height)
+    public static void FillRectangle(this IRenderContext2D ctx, System.Drawing.Color color, Point2 topLeft, double width, double height)
     {
         ctx.FillPolygon(color, [
             topLeft,

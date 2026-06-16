@@ -9,14 +9,14 @@ using SixLabors.ImageSharp.Processing;
 
 namespace Cubism.ImageSharp;
 
-public class ImageSharpRenderContext : IRenderContext
+public class ImageSharpRenderContext2D : IRenderContext2D
 {
     private readonly Image _image;
     private Dictionary<System.Drawing.Color, Color> _colorMap = new();
     private Dictionary<System.Drawing.Color, SolidPen> _solidPensMap = new();
     private Dictionary<System.Drawing.Color, SolidBrush> _solidBrushesMap = new();
 
-    public ImageSharpRenderContext(Image image)
+    public ImageSharpRenderContext2D(Image image)
     {
         _image = image;
     }
