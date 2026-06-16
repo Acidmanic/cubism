@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace Cubism.Models;
 
 public struct Point2
@@ -35,4 +37,7 @@ public struct Point2
 
         return new Point2(x, y);
     }
+
+    public static implicit operator PointF(Point2 point) => new((float)point.X, (float)point.Y);
+    public static implicit operator Point2(PointF point) => new(point.X, point.Y);
 }
