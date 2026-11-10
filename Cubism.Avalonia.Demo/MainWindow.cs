@@ -48,16 +48,15 @@ public class MainWindow : Window
     {
         var scene = new Scene();
         body = SceneObject.Cube(0, 0, 0, 1, 1, 1, Color.FromArgb(255, 90, 170, 240), 2);
-        var satellite = SceneObject.Cube(1.15, 0.25, 0.2, 0.4, 0.4, 0.4, Color.FromArgb(255, 240, 150, 50), 2);
-        body.AddChild(satellite);
-
         var poster = Bitmap2D.Checker(
             32,
             32,
             Color.FromArgb(255, 230, 40, 140),
             Color.FromArgb(255, 240, 220, 60),
             8);
-        var sprite = new SceneObject { Position = new Point3(0.5, 1.25, 0.5) };
+        var satellite = SceneObject.Cube(1.15, 0.25, 0.2, 0.4, 0.4, 0.4, poster, 2);
+        body.AddChild(satellite);
+        var sprite = new SceneObject { Position = new Point3(0, 0, 0) };
         sprite.Billboards.Add(new Billboard(new Point3(0, 0, 0), 0.7, 0.7, poster));
         body.AddChild(sprite);
 

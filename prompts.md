@@ -17,3 +17,13 @@ with avalonia, this would solve my problem.
 
 so what is your suggestion for straight forward road map to compelete 
 this 3d-engin project? (i called it Cubism) 
+
+
+
+Wow. THis is great. Thanks.
+i can see that a cube only defines the geometry and when we create a Scene object cube (calling SceneObject.Cube(.))
+it creates a Cube object, then creates face objects based on Cube.Faces with the given color.
+i was wondering what if i wanted faces to be filled with texetures? brushes or even images?
+how can we update the Face class to support that and regardingly, add another SceneObject.Cube(.) method that can create
+this texetured objects
+

@@ -63,12 +63,32 @@ public sealed class SceneObject
     }
 
     public static SceneObject Cube(double x, double y, double z, double width, double height, double depth, Color color, double thickness = 1.5)
+        => Cube(x, y, z, width, height, depth, new SolidFill(color), thickness);
+
+    public static SceneObject Cube(double x, double y, double z, double width, double height, double depth, Bitmap2D image, double thickness = 1.5)
+        => Cube(x, y, z, width, height, depth, new ImageFill(image), thickness);
+
+    public static SceneObject Cube(double x, double y, double z, double width, double height, double depth, FaceFill fill, double thickness = 1.5)
     {
+        var fills = new FaceFill[6];
+        Array.Fill(fills, fill);
+        return Cube(x, y, z, width, height, depth, fills, thickness);
+    }
+
+    public static SceneObject Cube(double x, double y, double z, double width, double height, double depth, IReadOnlyList<FaceFill> fills, double thickness = 1.5)
+    {
+        if (fills.Count != 6)
+            throw new ArgumentException("A cube needs one fill for each of its six faces.", nameof(fills));
+
         var cube = new Cube(0, 0, 0, width, height, depth);
         var obj = new SceneObject { Position = new Point3(x, y, z) };
+        int index = 0;
 
-        foreach (var face in cube.Faces())
-            obj.Faces.Add(new Face(color, thickness, face));
+        foreach (var vertices in cube.Faces())
+        {
+            obj.Faces.Add(new Face(fills[index], thickness, vertices));
+            index++;
+        }
 
         return obj;
     }

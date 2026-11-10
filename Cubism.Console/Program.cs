@@ -22,6 +22,7 @@ VerifyClip();
 VerifyHierarchy();
 VerifyOverlap();
 VerifyPick(straight, viewport);
+VerifyTexture();
 
 var camera = new Projection { CameraPosition = new Point3(2.2, 1.5, -2.6) };
 var lookTarget = new Point3(0.7, 0.55, 0.4);
@@ -60,15 +61,14 @@ static Scene BuildScene()
 {
     var scene = new Scene();
     var body = SceneObject.Cube(0, 0, 0, 1, 1, 1, Color.FromArgb(255, 90, 170, 240), 2);
-    var satellite = SceneObject.Cube(1.15, 0.25, 0.2, 0.4, 0.4, 0.4, Color.FromArgb(255, 240, 150, 50), 2);
-    body.AddChild(satellite);
-
     var poster = Bitmap2D.Checker(
         32,
         32,
         Color.FromArgb(255, 230, 40, 140),
         Color.FromArgb(255, 240, 220, 60),
         8);
+    var satellite = SceneObject.Cube(1.15, 0.25, 0.2, 0.4, 0.4, 0.4, poster, 2);
+    body.AddChild(satellite);
     var sprite = new SceneObject { Position = new Point3(0.5, 1.25, 0.5) };
     sprite.Billboards.Add(new Billboard(new Point3(0, 0, 0), 0.7, 0.7, poster));
     body.AddChild(sprite);
@@ -154,6 +154,30 @@ static void VerifyOverlap()
 
     if (!box.Overlaps(inside) || box.Overlaps(apart) || !box.Overlaps(touching))
         throw new InvalidOperationException("Cube overlap did not match the expected boxes.");
+}
+
+static void VerifyTexture()
+{
+    var magenta = Color.FromArgb(255, 230, 40, 140);
+    var yellow = Color.FromArgb(255, 240, 220, 60);
+    var fill = new ImageFill(Bitmap2D.Checker(32, 32, magenta, yellow, 8));
+    if (fill.Sample(0.01, 0.99).ToArgb() != magenta.ToArgb() || fill.Sample(0.01, 0.01).ToArgb() != yellow.ToArgb())
+        throw new InvalidOperationException("ImageFill did not sample the expected texels.");
+
+    var scene = new Scene { Light = new DirectionalLight(new Point3(0, 0, -1), 0) };
+    var cube = SceneObject.Cube(0, 0, 0, 1, 1, 1, fill, 0);
+    foreach (var face in cube.Faces)
+        face.Stroke = false;
+    scene.Add(cube);
+
+    var camera = new Projection { CameraPosition = new Point3(0.5, 0.5, -2) };
+    camera.LookAt(new Point3(0.5, 0.5, 0.5));
+    using var rendered = new Image<Rgba32>(200, 200);
+    var context = new ImageSharpRenderContext2D(rendered);
+    context.FillRectangle(Color.FromArgb(255, 24, 26, 32), new Point2(0, 0), 200, 200);
+    new SceneRenderer(camera, new Viewport(200, 200)) { Ambient = 1 }.Render(scene, context);
+    if (CountColor(rendered, magenta) < 100)
+        throw new InvalidOperationException("A textured face did not draw its image.");
 }
 
 static void VerifyPick(Projection camera, Viewport viewport)
