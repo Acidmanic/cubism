@@ -11,9 +11,26 @@ namespace Cubism.ImageSharp;
 
 public class ImageSharpRenderContext2D : IRenderContext2D
 {
+    private class PenKey
+    {
+        public PenKey(System.Drawing.Color color, double thickness)
+        {
+            Thickness = thickness;
+            Color = color;
+
+            Key = $"{Thickness:00.0000}:{Color.ToArgb()}";
+        }
+
+        public double Thickness { get; }
+
+        public System.Drawing.Color Color { get; }
+
+        public string Key { get; }
+    }
+
     private readonly Image _image;
     private Dictionary<System.Drawing.Color, Color> _colorMap = new();
-    private Dictionary<System.Drawing.Color, SolidPen> _solidPensMap = new();
+    private Dictionary<PenKey, SolidPen> _solidPensMap = new();
     private Dictionary<System.Drawing.Color, SolidBrush> _solidBrushesMap = new();
 
     public ImageSharpRenderContext2D(Image image)
@@ -21,16 +38,16 @@ public class ImageSharpRenderContext2D : IRenderContext2D
         _image = image;
     }
 
-    public void DrawLine(System.Drawing.Color color, Point2 p1, Point2 p2)
+    public void DrawLine(System.Drawing.Color color, double thickness, Point2 p1, Point2 p2)
     {
-        var pen = mapSolidPenCached(color);
+        var pen = mapSolidPenCached(color, thickness);
 
         _image.Mutate(x => { x.Paint(c => c.DrawLine(pen, map([p1, p2]))); });
     }
 
-    public void DrawPolygon(System.Drawing.Color color, params Point2[] points)
+    public void DrawPolygon(System.Drawing.Color color, double thickness, params Point2[] points)
     {
-        var pen = mapSolidPenCached(color);
+        var pen = mapSolidPenCached(color, thickness);
 
         _image.Mutate(x => x.Paint(cv => { cv.DrawLine(pen, map(points)); }));
     }
@@ -58,18 +75,20 @@ public class ImageSharpRenderContext2D : IRenderContext2D
         return c;
     }
 
-    private SolidPen mapSolidPenCached(System.Drawing.Color color)
+    private SolidPen mapSolidPenCached(System.Drawing.Color color, double thickness)
     {
-        if (_solidPensMap.TryGetValue(color, out var value))
+        var key = new PenKey(color, thickness);
+
+        if (_solidPensMap.TryGetValue(key, out var value))
         {
             return value;
         }
 
         var c = mapColorCached(color);
 
-        var pen = new SolidPen(c);
+        var pen = new SolidPen(c, (float)thickness);
 
-        _solidPensMap.Add(color, pen);
+        _solidPensMap.Add(key, pen);
 
         return pen;
     }

@@ -40,4 +40,14 @@ public struct Point3
         
         return new Point3(x, y, z);
     }
+    
+    public static bool operator ==(Point3 a, Point3 b)
+    {
+        return  a.X == b.X && a.Y == b.Y && a.Z == b.Z;
+    }
+
+    public static bool operator !=(Point3 a, Point3 b)
+    {
+        return !(a == b);
+    }
 }

@@ -1,6 +1,6 @@
 namespace Cubism.Models;
 
-public struct Cube
+public class Cube:VectorObject
 {
     public Point3 TopLeftBack { get; private set; }
     public Point3 BottomRightBack { get; private set; }
@@ -32,5 +32,15 @@ public struct Cube
         Width = width;
         Height = height;
         Depth = depth;
+    }
+
+    public static bool operator ==(Cube c1, Cube c2)
+    {
+        return c1.TopLeftBack == c2.TopLeftBack;
+    }
+
+    public static bool operator !=(Cube cube1, Cube cube2)
+    {
+        return !(cube1 == cube2);
     }
 }
