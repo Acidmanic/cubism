@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cubism\Cubism.csproj" />
+    <ProjectReference Include="..\Cubism.ImageSharp\Cubism.ImageSharp.csproj" />
   </ItemGroup>
 
 </Project>

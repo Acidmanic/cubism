@@ -12,7 +12,8 @@
 
   
   <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp" Version="4.0.0" />
-    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="3.0.0" />
+    <!-- Drawing 3.x refuses to compile without a Six Labors license. 2.1.7 is the last release that builds without one, and it depends on ImageSharp 3.1.11. -->
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.7" />
   </ItemGroup>
 </Project>
