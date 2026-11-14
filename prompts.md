@@ -27,3 +27,7 @@ i was wondering what if i wanted faces to be filled with texetures? brushes or e
 how can we update the Face class to support that and regardingly, add another SceneObject.Cube(.) method that can create
 this texetured objects
 
+
+Thanks. Great,
+how does the dragging work? i couldnt find the code that makes the image move when i drag with my mouse? 
+(i'm talking about the avalonia demo project)

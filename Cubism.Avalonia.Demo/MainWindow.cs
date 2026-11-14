@@ -11,12 +11,12 @@ public class MainWindow : Window
 {
     public MainWindow()
     {
-        Title = "Cubism — drag to orbit";
+        Title = "Cubism — right-drag look, WASD fly, wheel dolly";
         Width = 960;
         Height = 640;
         Background = new SolidColorBrush(global::Avalonia.Media.Color.FromRgb(24, 26, 32));
 
-        var scene = BuildScene(out var body);
+        var scene = BuildScene();
         var camera = new Projection { CameraPosition = new Point3(2.2, 1.5, -2.6) };
         camera.LookAt(new Point3(0.7, 0.55, 0.4));
 
@@ -26,28 +26,13 @@ public class MainWindow : Window
             Camera = camera
         };
         Content = view;
-        new OrbitCameraController().Attach(view);
-
-        view.Loaded += (_, _) =>
-        {
-            void Frame(TimeSpan time)
-            {
-                if (TopLevel.GetTopLevel(view) is not { } top)
-                    return;
-
-                body.Yaw = time.TotalSeconds * 0.6;
-                view.InvalidateVisual();
-                top.RequestAnimationFrame(Frame);
-            }
-
-            TopLevel.GetTopLevel(view)?.RequestAnimationFrame(Frame);
-        };
+        new ExploreCameraController().Attach(view);
     }
 
-    private static Scene BuildScene(out SceneObject body)
+    private static Scene BuildScene()
     {
         var scene = new Scene();
-        body = SceneObject.Cube(0, 0, 0, 1, 1, 1, Color.FromArgb(255, 90, 170, 240), 2);
+        var body = SceneObject.Cube(0, 0, 0, 1, 1, 1, Color.FromArgb(255, 90, 170, 240), 2);
         var poster = Bitmap2D.Checker(
             32,
             32,
