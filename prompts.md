@@ -31,3 +31,7 @@ this texetured objects
 Thanks. Great,
 how does the dragging work? i couldnt find the code that makes the image move when i drag with my mouse? 
 (i'm talking about the avalonia demo project)
+
+
+Wow. this is great. So can we have an advanced camera controller that enables us to smoothly explore
+a 3d world using mouse and keyboard using standard and intuitive mouse and keyboard controls?
